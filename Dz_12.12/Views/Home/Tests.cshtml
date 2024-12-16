@@ -1,0 +1,18 @@
+﻿@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <title>Тестування</title>
+</head>
+<body>
+    <h2>Питання @ViewData["QuestionNumber"]</h2>
+    <p>@ViewData["Question"]</p>
+    <form method="post">
+        <label>Ваша відповідь:</label><br />
+        <textarea name="Answer" rows="3" cols="50">@Model?.Answer</textarea><br /><br />
+        <input type="submit" value="Далі" />
+    </form>
+</body>
+</html>
