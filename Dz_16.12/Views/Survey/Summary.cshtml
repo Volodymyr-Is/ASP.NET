@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <title>Підсумок</title>
+</head>
+<body>
+    <h2>Підсумок</h2>
+
+    <h3>Особисті дані</h3>
+    <p>Ім'я: @Model.Info.FirstName</p>
+    <p>Прізвище: @Model.Info.LastName</p>
+    <p>Вік: @Model.Info.Age</p>
+    <p>Спеціалізація: @Model.Info.Specialization</p>
+    <p>Контактні дані: @Model.Info.ContactInfo</p>
+
+    <h3>Професійні навички</h3>
+    <p>@Model.Skills.SkillDescription</p>
+
+    <h3>Результат тесту</h3>
+    <p>@Model.TestQuestion.Answer</p>
+
+    <form method="post">
+        <input type="submit" value="Підтвердити" />
+    </form>
+</body>
+</html>
