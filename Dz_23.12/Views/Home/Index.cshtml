@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+
+@model List<EmployeeViewModel>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Department</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(var emp in Model)
+        {
+            <tr>
+                <td>@emp.EmployeeId</td>
+                <td>@emp.EmployeeName</td>
+                <td>
+                    <a asp-action="Department" asp-route-departmentId="@emp.DepartmentId">
+                        @emp.DepartmentName
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
