@@ -1,0 +1,67 @@
+﻿@model FormModel
+
+@{
+    ViewBag.Title = "Registration Form";
+
+    var courses = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "BCA", Value = "BCA" },
+        new SelectListItem { Text = "MCA", Value = "MCA" },
+        new SelectListItem { Text = "MBA", Value = "MBA" }
+    };
+
+    var skills = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "C#", Value = "C#" },
+        new SelectListItem { Text = "ASP.NET", Value = "ASP.NET" },
+        new SelectListItem { Text = "ASP.NET Core", Value = "ASP.NET Core" },
+        new SelectListItem { Text = "Azure", Value = "Azure" }
+    };
+}
+
+<h2>Registration Form:</h2>
+
+@using (Html.BeginForm("Register", "Home", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="UserName">User Name:</label>
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @id = "UserName" })
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Password:</label>
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "Password" })
+    </div>
+
+    <div class="form-group">
+        <label>Gender:</label><br />
+        @Html.RadioButtonFor(m => m.Gender, "Male", new { @id = "GenderMale" }) <label for="GenderMale">Male</label>
+        @Html.RadioButtonFor(m => m.Gender, "Female", new { @id = "GenderFemale" }) <label for="GenderFemale">Female</label>
+    </div>
+
+    <div class="form-group">
+        <label for="Address">Address:</label>
+        @Html.TextAreaFor(m => m.Address, new { @class = "form-control", rows = 3, @id = "Address" })
+    </div>
+
+    <div class="form-group">
+        <label>Hobbies:</label><br />
+        <label>@Html.CheckBox("Hobbies", new { @value = "Cricket" }) Cricket</label>
+        <label>@Html.CheckBox("Hobbies", new { @value = "Dancing" }) Dancing</label>
+        <label>@Html.CheckBox("Hobbies", new { @value = "Drawing" }) Drawing</label>
+    </div>
+
+    <div class="form-group">
+        <label for="Course">Courses:</label>
+        @Html.DropDownListFor(m => m.Course, courses, "Select Course", new { @class = "form-control", @id = "Course" })
+    </div>
+
+    <div class="form-group">
+        <label for="Skills">Skills:</label>
+        @Html.ListBoxFor(m => m.Skills, skills, new { @class = "form-control", size = 4, @id = "Skills" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Надіслати</button>
+    </div>
+}
