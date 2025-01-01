@@ -1,0 +1,39 @@
+﻿
+@model PagedResult<Product>
+
+<h1>Product list</h1>
+
+<form asp-action="Index" method="get">
+    <input type="text" name="searchQueue" value="@ViewBag.searchQueue" placeholder="Enter product name..." />
+    <select name="categoryId">
+        <option value="">All categories</option>
+        @foreach (var category in (List<SelectListItem>)ViewBag.Categories)
+        {
+            if (ViewBag.SelectedCategoryId != null && ViewBag.SelectedCategoryId.ToString() == category.Value)
+            {
+                <option value="@category.Value" selected>@category.Text</option>
+            }
+            else
+            {
+                <option value="@category.Value">@category.Text</option>
+            }
+        }
+    </select>
+    <button type="submit">Search</button>
+</form>
+
+@await Html.PartialAsync("_ProductList", Model.Items)
+
+<div>
+    @if (Model.PreviousPage.HasValue)
+    {
+        <a asp-action="Index" asp-route-searchQueue="@ViewBag.searchQueue" asp-route-categoryId="@ViewBag.SelectedCategoryId" asp-route-pageNumber="@Model.PreviousPage">Previous</a>
+    }
+
+    <span>Page @Model.CurrentPage із @Model.TotalPages</span>
+
+    @if (Model.NextPage.HasValue)
+    {
+        <a asp-action="Index" asp-route-searchQueue="@ViewBag.searchQueue" asp-route-categoryId="@ViewBag.SelectedCategoryId" asp-route-pageNumber="@Model.NextPage">Next</a>
+    }
+</div>
