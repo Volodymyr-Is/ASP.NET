@@ -1,0 +1,58 @@
+﻿@model Survey
+
+<form asp-action="Create" method="post">
+    <div>
+        <label>User name:</label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+
+    <div>
+        <label>Age:</label>
+        <input asp-for="Age" type="number" />
+        <span asp-validation-for="Age"></span>
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <input asp-for="Email" type="email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label>Satisfaction level:</label>
+        <select asp-for="Satisfaction">
+            <option value="">Choose...</option>
+            <option value="High">High</option>
+            <option value="Mid">Mid</option>
+            <option value="Low">Low</option>
+        </select>
+        <span asp-validation-for="Satisfaction"></span>
+    </div>
+
+    <div>
+        <label>Used services:</label>
+        <div>
+            <input type="checkbox" name="ServicesUsed" value="Service 1" /> Service 1
+        </div>
+        <div>
+            <input type="checkbox" name="ServicesUsed" value="Service 2" /> Service 2
+        </div>
+        <div>
+            <input type="checkbox" name="ServicesUsed" value="Service 3" /> Service 3
+        </div>
+        <span asp-validation-for="ServicesUsed"></span>
+    </div>
+
+    <div>
+        <label>Suggestions:</label>
+        <textarea asp-for="Suggestions"></textarea>
+        <span asp-validation-for="Suggestions"></span>
+    </div>
+
+    <button type="submit">Send</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
