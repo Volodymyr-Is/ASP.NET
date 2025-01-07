@@ -1,0 +1,26 @@
+﻿@model FileModel
+
+<h1>Upload File</h1>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div style="color: @(Model.IsSuccess ? "green" : "red")">
+        @Model.Message
+    </div>
+}
+
+<form asp-action="Upload" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="file">Choose a file:</label>
+        <input type="file" id="file" name="File" />
+    </div>
+    <div>
+        <button type="submit">Upload</button>
+    </div>
+</form>
+
+<a href="/File/Index">View Uploaded Files</a>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

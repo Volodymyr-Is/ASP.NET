@@ -1,0 +1,22 @@
+﻿@model List<string>
+
+<h1>Uploaded Files</h1>
+
+@if (Model != null && Model.Count > 0)
+{
+    <ul>
+        @foreach (var file in Model)
+        {
+            <li>
+                @file
+                <a href="/File/Download?fileName=@file" style="margin-left: 10px;">Download</a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No files available.</p>
+}
+
+<a href="/File/Upload">Upload Another File</a>
