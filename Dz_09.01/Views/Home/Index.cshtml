@@ -1,0 +1,17 @@
+﻿@model List<int>
+
+<h1>Recently Viewed Products</h1>
+
+@if (Model.Any())
+{
+    <ul>
+        @foreach (var productId in Model)
+        {
+            <li>Product ID: @productId</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No products viewed yet.</p>
+}
