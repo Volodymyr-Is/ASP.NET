@@ -1,0 +1,10 @@
+﻿<h1>Головна сторінка</h1>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>Привіт, @User.Identity.Name! <a href="/Account/Logout">Вийти</a></p>
+}
+else
+{
+    <a href="/Account/Login">Увійти</a>
+}
+
