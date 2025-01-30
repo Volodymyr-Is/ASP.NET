@@ -1,0 +1,6 @@
+@Dz_27._01.Server_HostAddress = http://localhost:5017
+
+GET {{Dz_27._01.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
