@@ -1,0 +1,40 @@
+﻿{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/students/{everything}",
+            "UpstreamPathTemplate": "/students/{everything}",
+            "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5001
+                }
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/teachers/{everything}",
+            "UpstreamPathTemplate": "/teachers/{everything}",
+            "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/courses/{everything}",
+            "UpstreamPathTemplate": "/courses/{everything}",
+            "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5003
+                }
+            ]
+        }
+    ]
+}
