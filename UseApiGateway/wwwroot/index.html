@@ -1,0 +1,277 @@
+﻿<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        input, button {
+            margin: 5px;
+            padding: 10px;
+        }
+
+        #employeesResult {
+            margin-top: 10px;
+            white-space: pre-wrap;
+            border: 1px solid #ddd;
+            padding: 10px;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Employee Management</h2>
+
+    <div>
+        <input id="name" placeholder="Name">
+        <input type="password" id="password" placeholder="Password">
+        <button id="loginBtn">Login</button>
+        <button id="registerBtn">Register</button>
+        <button id="cookieBtn">Cookie</button>
+    </div>
+
+    <hr>
+
+    <div>
+        <button id="getEmployeesBtn">Get Employees</button>
+        <div id="employeesResult"></div>
+    </div>
+
+    <script>
+        const apiGatewayBaseUrl = "http://localhost:5058";
+
+        const loginBtn = document.getElementById("loginBtn");
+        const registerBtn = document.getElementById("registerBtn");
+        const getEmployeesBtn = document.getElementById("getEmployeesBtn");
+
+        cookieBtn.addEventListener("click", function () {
+            alert(document.cookie.split('=')[1]);
+        });
+
+
+        loginBtn.addEventListener("click", function () {
+            const name = document.getElementById("name").value;
+            const password = document.getElementById("password").value;
+
+            fetch(`${apiGatewayBaseUrl}/auth/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, password }),
+                credentials: "include"
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Login failed");
+                }
+                return response.json();
+            })
+            .then(res => {
+                document.cookie = `JWT=${res.token}; path=/`;
+                alert("Login successful");
+            })
+            .catch(error => alert(error.message));
+        });
+
+        registerBtn.addEventListener("click", function () {
+            const name = document.getElementById("name").value;
+            const password = document.getElementById("password").value;
+
+            fetch(`${apiGatewayBaseUrl}/auth/register`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, password })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Registration failed");
+                }
+                return response.json();
+            })
+            .then(res => alert("Registration successful"))
+            .catch(error => alert(error.message));
+        });
+
+        getEmployeesBtn.addEventListener("click", function () {
+            const token = document.cookie.split('=')[1];
+
+            if (!token) {
+                alert("Please login first.");
+                return;
+            }
+
+            fetch(`${apiGatewayBaseUrl}/employees`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                credentials: "include"
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to fetch employees");
+                }
+                return response.json();
+            })
+            .then(res => document.getElementById("employeesResult").innerText = JSON.stringify(res, null, 2))
+            .catch(error => alert(error.message));
+        });
+    </script>
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        input, button {
+            margin: 5px;
+            padding: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Employee Management</h2>
+    <div>
+        <input id="name" placeholder="Name">
+        <input type="password" id="password" placeholder="Password">
+        <button id="loginBtn">Login</button>
+        <button id="registerBtn">Register</button>
+        <button id="cookieBtn">Cookie</button>
+    </div>
+    <hr>
+    <div>
+        <button id="getEmployeesBtn">Get Employees</button>
+        <table id="employeesTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <script>
+        const apiGatewayBaseUrl = "http://localhost:5058";
+        let userRole = "";
+
+        document.getElementById("cookieBtn").addEventListener("click", function () {
+            alert(document.cookie.split('=')[1]);
+        });
+
+        document.getElementById("loginBtn").addEventListener("click", function () {
+            const name = document.getElementById("name").value;
+            const password = document.getElementById("password").value;
+
+            fetch(`${apiGatewayBaseUrl}/auth/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, password }),
+                credentials: "include"
+            })
+                .then(response => response.json())
+                .then(res => {
+                    document.cookie = `JWT=${res.token}; path=/`;
+                    userRole = res.role;
+                    alert("Login successful");
+                })
+                .catch(error => alert("Login failed"));
+        });
+
+        document.getElementById("registerBtn").addEventListener("click", function () {
+            const name = document.getElementById("name").value;
+            const password = document.getElementById("password").value;
+
+            fetch(`${apiGatewayBaseUrl}/auth/register`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, password })
+            })
+                .then(response => response.json())
+                .then(() => alert("Registration successful"))
+                .catch(() => alert("Registration failed"));
+        });
+
+        document.getElementById("getEmployeesBtn").addEventListener("click", function () {
+            const token = document.cookie.split('=')[1];
+            if (!token) {
+                alert("Please login first.");
+                return;
+            }
+
+            fetch(`${apiGatewayBaseUrl}/employees`, {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${token}` },
+                credentials: "include"
+            })
+                .then(response => response.json())
+                .then(employees => {
+                    const tbody = document.querySelector("#employeesTable tbody");
+                    tbody.innerHTML = "";
+                    employees.forEach(emp => {
+                        const row = `<tr>
+                            <td>${emp.id}</td>
+                            <td>${emp.name}</td>
+                            <td>${emp.position}</td>
+                            <td>
+                                ${userRole === "Admin" ? `<button onclick="deleteEmployee(${emp.id})">Delete</button>` : ""}
+                            </td>
+                        </tr>`;
+                        tbody.innerHTML += row;
+                    });
+                })
+                .catch(() => alert("Failed to fetch employees"));
+        });
+
+        function deleteEmployee(employeeId) {
+            const token = document.cookie.split('=')[1];
+            fetch(`${apiGatewayBaseUrl}/employees/${employeeId}`, {
+                method: "DELETE",
+                headers: { "Authorization": `Bearer ${token}` },
+                credentials: "include"
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to delete employee");
+                    }
+                    alert("Employee deleted successfully");
+                    document.getElementById("getEmployeesBtn").click();
+                })
+                .catch(() => alert("Error deleting employee"));
+        }
+    </script>
+</body>
+</html>

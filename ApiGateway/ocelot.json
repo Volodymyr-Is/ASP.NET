@@ -1,0 +1,37 @@
+﻿{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/auth/{everything}",
+            "UpstreamPathTemplate": "/auth/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5278
+                }
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/users/{everything}",
+            "UpstreamPathTemplate": "/users/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5242
+                }
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/employees/{everything}",
+            "UpstreamPathTemplate": "/employees/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5174
+                }
+            ]
+        }
+    ]
+}
